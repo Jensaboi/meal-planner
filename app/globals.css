@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+}
+@theme {
+  --color-purple: #234aa3;
+  --color-light-purple: #f5f3ff;
+  --color-brown: #7c4a2d;
+  --color-red: #eb1928;
+  --font-barrio: var(--font-barrio);
+}
