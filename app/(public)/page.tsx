@@ -4,7 +4,7 @@ import RecipePreviewGrid from "@/features/home/components/RecipePreviewGrid";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <HeroSection />
 
       <RecipePreviewGrid />
@@ -13,6 +13,6 @@ export default function Home() {
 
       {/* Frågor och svar */}
       <section></section>
-    </div>
+    </>
   );
 }

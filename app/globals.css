@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --color-snicker-blue: #234aa3;
+  --color-light-purple: #f5f3ff;
+  --color-brown: #7c4a2d;
+  --color-red: #eb1928;
+  --font-barrio: var(--font-barrio);
+}
+
 @layer base {
   body {
   }
@@ -10,11 +18,25 @@
 }
 
 @layer components {
-}
-@theme {
-  --color-purple: #234aa3;
-  --color-light-purple: #f5f3ff;
-  --color-brown: #7c4a2d;
-  --color-red: #eb1928;
-  --font-barrio: var(--font-barrio);
+  .primary-btn {
+    background-color: var(--color-snicker-blue);
+    padding: 0.8em 1.5em;
+    color: var(--color-white);
+    font-weight: var(--font-weight-medium);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2em;
+  }
+
+  .secondary-btn {
+    background-color: var(--color-light-purple);
+    padding: 0.8em 1.5em;
+    color: var(--color-snicker-blue);
+    font-weight: var(--font-weight-medium);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2em;
+  }
 }

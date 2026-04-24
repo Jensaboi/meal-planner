@@ -1,7 +1,10 @@
+import { getUser } from "@/lib/api/supabaseApi";
 import { redirect } from "next/navigation";
 
-export default function Layout({ children }) {
-  if (true) redirect("/");
+export default async function ProtectedRouteLayout({ children }) {
+  const { success, data, error } = await getUser();
 
-  return <div>{children}</div>;
+  if (success && data) return <>{children}</>;
+
+  return redirect("/");
 }
