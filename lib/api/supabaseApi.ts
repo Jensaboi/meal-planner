@@ -1,21 +1,9 @@
-import { createClient } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
-
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_PUBLIC_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_KEY;
-
-if (!SUPABASE_URL)
-  throw new Error(`Error: Missing .env varible SUPABASE_URL: ${SUPABASE_URL}`);
-if (!SUPABASE_PUBLIC_KEY)
-  throw new Error("Error: Missing .env varible: SUPABASE_PUBLIC_KEY");
-
-console.log(SUPABASE_URL);
-// Create a single supabase client for interacting with your database
-export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
+import { createClient } from "../supabase/client";
 
 export async function getUser() {
-  const cookieStore = cookies(); // 👈 THIS is critical
   try {
+    const supabase = createClient();
+
     const { data, error } = await supabase.auth.getUser();
 
     if (error) {
@@ -40,6 +28,8 @@ export async function signUpUser({
   password: string;
 }) {
   try {
+    const supabase = createClient();
+
     const { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
@@ -62,6 +52,8 @@ export async function signInUser({
   password: string;
 }) {
   try {
+    const supabase = createClient();
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -81,6 +73,8 @@ export async function signInUser({
 
 export async function signOutUser() {
   try {
+    const supabase = createClient();
+
     const { error } = await supabase.auth.signOut();
 
     if (error) {
