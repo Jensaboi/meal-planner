@@ -38,14 +38,20 @@ export default function Header() {
             </li>
           ))}
         </ul>
+
         <div className="lg:flex-row lg:p-0 flex p-4 gap-4 flex-col justify-end align-center flex-1">
           <Link
+            onClick={() => setIsOpen(false)}
             className="p-4 whitespace-nowrap text-zinc-900 hover:text-zinc-700 block font-semibold"
             href={"/signup"}
           >
             Sign up
           </Link>
-          <Link className="primary-btn" href={"/signin"}>
+          <Link
+            onClick={() => setIsOpen(false)}
+            className="primary-btn"
+            href={"/signin"}
+          >
             Sign In
           </Link>
         </div>
