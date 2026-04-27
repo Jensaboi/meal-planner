@@ -4,6 +4,9 @@ import Logo from "@/public/Logo";
 import HamburgerMenu from "@/public/HamburgerMenu";
 import { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
+import { signOutUser } from "@/lib/api/supabaseApi";
+import { useRouter } from "next/navigation";
 
 const NavItems = [
   { href: "/dashboard", name: "Dashboard" },
@@ -14,10 +17,14 @@ const NavItems = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const { user } = useAuth();
 
   return (
     <header className="bg-white sticky w-full flex align-center justify-between px-4 gap-4">
-      <Logo />
+      <button onClick={() => setIsOpen(false)}>
+        <Logo />
+      </button>
 
       <button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
         <HamburgerMenu isOpen={isOpen} />
@@ -39,22 +46,36 @@ export default function Header() {
           ))}
         </ul>
 
-        <div className="lg:flex-row lg:p-0 flex p-4 gap-4 flex-col justify-end align-center flex-1">
-          <Link
-            onClick={() => setIsOpen(false)}
-            className="p-4 whitespace-nowrap text-zinc-900 hover:text-zinc-700 block font-semibold"
-            href={"/signup"}
-          >
-            Sign up
-          </Link>
-          <Link
-            onClick={() => setIsOpen(false)}
-            className="primary-btn"
-            href={"/signin"}
-          >
-            Sign In
-          </Link>
-        </div>
+        {user ? (
+          <div className="lg:flex-row lg:p-0 flex p-4 gap-4 flex-col justify-end align-center flex-1">
+            <button
+              onClick={async () => {
+                await signOutUser();
+                router.push("/");
+                setIsOpen(false);
+              }}
+            >
+              Sign out
+            </button>
+          </div>
+        ) : (
+          <div className="lg:flex-row lg:p-0 flex p-4 gap-4 flex-col justify-end align-center flex-1">
+            <Link
+              onClick={() => setIsOpen(false)}
+              className="p-4 whitespace-nowrap text-zinc-900 hover:text-zinc-700 block font-semibold"
+              href={"/signup"}
+            >
+              Sign up
+            </Link>
+            <Link
+              onClick={() => setIsOpen(false)}
+              className="primary-btn"
+              href={"/signin"}
+            >
+              Sign In
+            </Link>
+          </div>
+        )}
       </nav>
     </header>
   );

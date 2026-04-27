@@ -3,7 +3,7 @@ import { Barrio, Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
-import { getUser } from "@/lib/api/supabaseApi";
+import AuthProvider from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,11 +36,13 @@ export default async function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${barrio.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-gray-50">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+      <AuthProvider>
+        <body className="min-h-full flex flex-col bg-gray-50">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </body>
+      </AuthProvider>
     </html>
   );
 }

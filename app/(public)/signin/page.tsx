@@ -1,10 +1,26 @@
 "use client";
 import Link from "next/link";
 import { useActionState } from "react";
-import signInAction from "@/features/auth/signInAction";
+import { useRouter } from "next/navigation";
+import { signInUser } from "@/lib/api/supabaseApi";
 
 export default function SignIn() {
-  const [state, formAction, isPending] = useActionState(signInAction);
+  const router = useRouter();
+
+  const [state, formAction, isPending] = useActionState(async (_, formData) => {
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    const { success, error, data } = await signInUser({ email, password });
+
+    if (success && data) {
+      router.push("/dashboard");
+    }
+
+    if (!success && error) {
+      return { error: error.message };
+    }
+  }, null);
 
   return (
     <section>

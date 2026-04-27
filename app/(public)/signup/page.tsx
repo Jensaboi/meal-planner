@@ -1,11 +1,27 @@
 "use client";
-import signUpAction from "@/features/auth/signUpAction";
+
 import Link from "next/link";
 import { useActionState } from "react";
+import { signUpUser } from "@/lib/api/supabaseApi";
+import { redirect } from "next/navigation";
 
 export default function SignUp() {
-  const [state, formAction, isPending] = useActionState(signUpAction);
+  const [state, formAction, isPending] = useActionState(
+    async (_prev, formData) => {
+      const email = formData.get("email");
+      const password = formData.get("password");
 
+      try {
+        const { success, data, error } = await signUpUser({ email, password });
+
+        if (!success) return { error };
+
+        if (success && data) redirect("/dashboard");
+      } catch (err) {
+        return { error: "Something went wrong, try again!" };
+      }
+    },
+  );
   return (
     <section>
       <form

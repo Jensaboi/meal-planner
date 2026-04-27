@@ -1,24 +1,5 @@
-import { createClient } from "../supabase/client";
-
-export async function getUser() {
-  try {
-    const supabase = createClient();
-
-    const { data, error } = await supabase.auth.getUser();
-
-    if (error) {
-      console.error(`Supabase auth error: ${error.message}`);
-      return { success: false, error: error.message };
-    }
-
-    const { user } = data;
-
-    return { success: true, user };
-  } catch (error) {
-    console.error(`Unexpected supabase error: ${error.message}`);
-    return { success: false, error: error.message };
-  }
-}
+//client-side supabase client
+import { createClient } from "../supabase/browser-client";
 
 export async function signUpUser({
   email,

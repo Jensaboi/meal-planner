@@ -1,4 +1,4 @@
-export default function Dashboard() {
+export default async function Dashboard() {
   return (
     <section>
       <h1>Dashboard section</h1>
