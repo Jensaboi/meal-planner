@@ -1,7 +1,33 @@
+import MealSchedule from "@/features/meals/MealSchedule";
+
 export default function Meals() {
-  return (
-    <section>
-      <h1>Meals page</h1>
-    </section>
+  const today = new Date();
+  const tomorrow = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() + 1,
   );
+
+  const meals = [
+    {
+      date: today.toLocaleDateString("sv-SE"),
+      mealType: "dinner",
+      recipeName: "Pizza vesuvio",
+      recipeId: 1,
+    },
+    {
+      date: today.toLocaleDateString("sv-SE"),
+      mealType: "lunch",
+      recipeName: "Pasta alfredo",
+      recipeId: 2,
+    },
+    {
+      date: tomorrow.toLocaleDateString("sv-SE"),
+      mealType: "dinner",
+      recipeName: "Hamburger",
+      recipeId: 3,
+    },
+  ];
+
+  return <MealSchedule meals={meals} />;
 }
