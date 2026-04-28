@@ -1,4 +1,4 @@
-import MealSchedule from "@/features/meals/MealSchedule";
+import MealScheduleList from "@/features/meals/MealScheduleList";
 
 export default function Meals() {
   const today = new Date();
@@ -29,5 +29,5 @@ export default function Meals() {
     },
   ];
 
-  return <MealSchedule meals={meals} />;
+  return <MealScheduleList meals={meals} />;
 }
