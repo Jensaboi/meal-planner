@@ -52,7 +52,12 @@ export default function MealScheduleList({ meals }) {
 
         <div className="flex justify-between">
           <button
-            onClick={() => setMonth(today.getMonth())}
+            onClick={() => {
+              setMonth(today.getMonth());
+              setTimeout(() => {
+                scrollToToday();
+              }, 200);
+            }}
             className="text-lg font-medium"
           >
             Today
@@ -62,7 +67,7 @@ export default function MealScheduleList({ meals }) {
             <button onClick={() => setMonth(prev => prev - 1)}>
               <ChevronLeft />
             </button>
-            <span className="text-lg font-medium">{currentMonth.name}</span>
+            <span className="text-lg font-medium">{currentMonth?.name}</span>
             <button onClick={() => setMonth(prev => prev + 1)}>
               <ChevronRight />
             </button>
