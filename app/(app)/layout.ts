@@ -1,14 +1,8 @@
-import { createClient } from "@/lib/supabase/server-client";
+import { getUser } from "@/data-access/user/user";
 import { redirect } from "next/navigation";
 
 export default async function ProtectedLayout({ children }) {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  console.log("server user:", user);
+  const user = await getUser();
 
   if (user) return children;
 
