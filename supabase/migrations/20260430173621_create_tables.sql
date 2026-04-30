@@ -1,0 +1,55 @@
+CREATE TABLE IF NOT EXISTS categories (
+  id BIGSERIAL PRIMARY KEY,
+  parent_id BIGINT REFERENCES categories(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  slug TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS foods (
+  id BIGSERIAL PRIMARY KEY,
+  livsmedelnummer BIGINT NOT NULL,
+  name TEXT NOT NULL,
+  kcal BIGINT NOT NULL,
+  kj BIGINT NOT NULL,
+  protein BIGINT NOT NULL,
+  carb BIGINT NOT NULL,
+  fat BIGINT NOT NULL,
+  category_id BIGINT NOT NULL REFERENCES categories(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS recipes (
+  id BIGSERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL,
+  estimated_time TEXT NOT NULL,
+  creator_id UUID NOT NULL,
+  status TEXT NOT NULL,
+  portion_from NUMBER NOT NULL,
+  portion_to NUMBER NOT NULL,
+  img TEXT,
+  category_id BIGINT NOT NULL REFERENCES categories(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS recipe_ingredients (
+  id BIGSERIAL PRIMARY KEY,
+  quantity DOUBLE PRECISION NOT NULL,
+  unit TEXT NOT NULL,
+  food_id BIGINT NOT NULL REFERENCES foods(id) ON DELETE CASCADE,
+  recipe_id BIGINT NOT NULL REFERENCES recipes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS recipe_instructions (
+  id BIGSERIAL PRIMARY KEY,
+  step_number INTEGER NOT NULL,
+  instruction TEXT NOT NULL,
+  recipe_id BIGINT NOT NULL REFERENCES recipes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS meals (
+  id BIGSERIAL PRIMARY KEY,
+  date DATE NOT NULL,
+  meal_type TEXT NOT NULL,
+  name TEXT NOT NULL,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  recipe_id BIGINT NOT NULL REFERENCES recipes(id) ON DELETE CASCADE
+);
