@@ -1,4 +1,4 @@
-import MealScheduleList from "@/features/meals/MealScheduleList";
+import MealScheduleList from "@/features/meals/components/MealScheduleList";
 
 export default function Meals() {
   const today = new Date();
