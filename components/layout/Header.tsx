@@ -11,8 +11,7 @@ import { useRouter } from "next/navigation";
 const NavItems = [
   { href: "/dashboard", name: "Dashboard" },
   { href: "/discover", name: "Discover" },
-  { href: "/meals", name: "Meals" },
-  { href: "/ingredients", name: "Ingredients" },
+  { href: "/calendar", name: "calendar" },
 ];
 
 export default function Header() {
@@ -21,7 +20,7 @@ export default function Header() {
   const { user } = useAuth();
 
   return (
-    <header className="bg-white sticky w-full flex align-center justify-between px-4 gap-4">
+    <header className="bg-white sticky top-0 z-999 w-full flex align-center justify-between px-4 gap-4">
       <button onClick={() => setIsOpen(false)}>
         <Logo />
       </button>

@@ -1,4 +1,5 @@
-import MealScheduleList from "@/features/meals/components/MealScheduleList";
+import Calendar from "@/features/calendar/components/Calendar";
+import { Meal } from "@/features/meals/meal.type";
 
 export default function Meals() {
   const today = new Date();
@@ -8,26 +9,29 @@ export default function Meals() {
     today.getDate() + 1,
   );
 
-  const meals = [
+  const meals: Meal[] = [
     {
+      id: 1,
       date: today.toLocaleDateString("sv-SE"),
-      mealType: "dinner",
-      recipeName: "Pizza vesuvio",
+      type: "dinner",
+      name: "Pizza vesuvio",
       recipeId: 1,
     },
     {
+      id: 2,
       date: today.toLocaleDateString("sv-SE"),
-      mealType: "lunch",
-      recipeName: "Pasta alfredo",
+      type: "lunch",
+      name: "Pasta alfredo",
       recipeId: 2,
     },
     {
+      id: 3,
       date: tomorrow.toLocaleDateString("sv-SE"),
-      mealType: "dinner",
-      recipeName: "Hamburger",
+      type: "dinner",
+      name: "Hamburger",
       recipeId: 3,
     },
   ];
 
-  return <MealScheduleList meals={meals} />;
+  return <Calendar data={meals} />;
 }
