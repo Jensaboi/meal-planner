@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS recipes (
   estimated_time TEXT NOT NULL,
   creator_id UUID NOT NULL,
   status TEXT NOT NULL,
-  portion_from NUMBER NOT NULL,
-  portion_to NUMBER NOT NULL,
+  portion_from INTEGER NOT NULL,
+  portion_to INTEGER NOT NULL,
   img TEXT,
   category_id BIGINT NOT NULL REFERENCES categories(id) ON DELETE CASCADE
 );
